@@ -25,36 +25,37 @@ UI.draw(win)
 
 
 def buttons():
-    
-    on = Rectangle(Point(10.0, 167.0), Point(64.0, 212.0))  # points are ordered ul, lr
-    tw = Rectangle(Point(79.0, 167.0), Point(133.0, 211.0))
-    th = Rectangle(Point(147.0, 167.0), Point(201.0, 212.0))
-    fo = Rectangle(Point(10.0, 231.0), Point(64.0, 277.0))
-    fi = Rectangle(Point(79.0, 232.0), Point(135.0, 277.0))
-    si = Rectangle(Point(147.0, 232.0), Point(201.0, 278.0))
-    se = Rectangle(Point(9.0, 290.0), Point(64.0, 337.0))
-    ei = Rectangle(Point(79.0, 291.0), Point(133.0, 335.0))
-    ni = Rectangle(Point(147.0, 290.0), Point(201.0, 336.0))
-    ze = Rectangle(Point(9.0, 350.0), Point(64.0, 394.0))
-    cl = Rectangle(Point(17.0, 92.0), Point(71.0, 139.0))
+    button_list=[]
+    generated_button_commands=("1", "2","3" ,"4", "5", "6", "7", 
+                               "8", "9", "0", ".", "rand")
+    tmp=-1
+    num_buttons=[]
+    for i in range(4):
+        for j in range(3):
+            tmp+=1
+            button_list.append((Rectangle(Point(75.0+(j*3)+(j-1)*63, 205.0+(i*3)+(i-1)*57), 
+                                           Point(75.0+(j*3)+(j)*63, 205.0+(i*3)+(i)*57))
+                                           ,generated_button_commands[tmp]))
+
+    cl = Rectangle(Point(17.0, 92.0), Point(71.0, 139.0)) # points are ordered ul, lr
     di = Rectangle(Point(86.0, 94.0), Point(140.0, 137.0))
     mu = Rectangle(Point(154.0, 93.0), Point(208.0, 139.0))
     su = Rectangle(Point(223.0, 152.0), Point(278.0, 197.0))
     ad = Rectangle(Point(223.0, 206.0), Point(278.0, 251.0))
     en = Rectangle(Point(222.0, 264.0), Point(275.0, 383.0))
-    do = Rectangle(Point(79.0, 350.0), Point(133.0, 395.0))
     ba = Rectangle(Point(223.0, 94.0), Point(278.0, 138.0))
-    rb = Rectangle(Point(148.0, 350.0), Point(202.0, 395.0))
+
     
-    button_tuple=( (on, "1") , (tw, "2") , (th, "3") , (fo, "4"), (fi, "5")
-                    , (si, "6"), (se, "7"), (ei, "8"), (ni, "9"), (cl, "X")
-                    , (di, "/"), (mu, "*"), (su,"-"), (ad,"+"), (en,"enter")
-                    , (do, "."), (ba, "<-"), (ze, "0"), (rb, "rand"))
+    hard_coded_buttons=[(su,"-"), (ad,"+"), (en,"enter"), (di, "/"), (ba, "<-"), (cl, "X"), (mu, "*")]
     
-    for button in button_tuple:
+    for hard_coded_button in hard_coded_buttons:
+        button_list.append(hard_coded_button)
+    
+        
+    for button in button_list:
         button[0].draw(win)
         
-    return button_tuple
+    return button_list
 
 def inside(point, rectangle):
     """ Is point inside rectangle? """
@@ -69,11 +70,11 @@ def action(button):
     """ Recieves text and executes command accordingly """
     global first
     global needClear
-    global button_tuple
+    global button_list
     
     if needClear==True:
         needClear=False
-        action(button_tuple[9])
+        action(button_list[9])
         
     if button!=None:
         refference, command =button
@@ -123,7 +124,7 @@ def action(button):
             return True
         
         elif command=="rand":
-            chosen=button_tuple[randrange(0, 18)]
+            chosen=button_list[randrange(0, 18)]
             print("randomly clicked: "+chosen[1])
             action(chosen)
             return True
@@ -180,7 +181,7 @@ def action(button):
             second=text.getText()
             first1=first
             operation=textOperation.getText()
-            action(button_tuple[9])
+            action(button_list[9])
             if second!="":
                 second=float(second)
                 if operation=="/":
@@ -211,7 +212,7 @@ def print_pos():
     ur= win.getMouse()
     print ("Rectangle(Point({}, {}), Point({}, {}))".format(ll.getX(),ll.getY(),ur.getX(),ur.getY()))
         
-button_tuple = buttons()
+button_list = buttons()
 
 text = Text(Point(150, 50), "")
 text.setSize(28)
@@ -224,15 +225,15 @@ textOperation.draw(win)
 cont=True
 
 while cont:
+
     cont=True
     clickPoint = win.getMouse()
     
     if clickPoint is not None:  # so we can substitute checkMouse() for getMouse()
-        for button in button_tuple:
+        for button in button_list:
             if inside(clickPoint, button[0]):
                 print(button[1])
                 cont= action(button)
-
-            
+   
 
 win.close()
