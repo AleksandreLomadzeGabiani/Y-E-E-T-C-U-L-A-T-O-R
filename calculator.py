@@ -4,7 +4,7 @@ Created on Wed Mar 27 04:35:10 2019
 
 @author: Aleksandre_The_Greatest
 
-credit for the initial structure of code:  
+credit for the basic button collisions):  
     || https://stackoverflow.com/questions/39867464/adding-button-to-python-graphics-py-window
     || author: cdlane
 """
@@ -20,7 +20,8 @@ first=None
 needClear=False
 YEET=False
 
-meme_images=("surreal_feel.png","smile_4d_cancer.gif")
+meme_images=("surreal_feel.png","smile_4d_cancer.gif","Brainlet_3.gif"
+             ,"brainlet_2.gif","feel_conceal.gif")
 MEME=None
 win = GraphWin("Y E E T C U L A T O R", WINDOW_WIDTH, WINDOW_HEIGHT)
 UI= Image(Point(WINDOW_WIDTH/2, 50),"calculatorUI.gif")
