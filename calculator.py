@@ -148,8 +148,13 @@ def action(button):
                 if t.getText()=="YEET":
                     t.setText("PLZ STAPH")
                     break
+            yeetening=Text(Point(150,390),"click to continue")
             MEME=Image(Point(WINDOW_WIDTH/2, WINDOW_HEIGHT/2),"background_memes/"+choice(meme_images))
             MEME.draw(win)
+            yeetening.setTextColor("red")
+            yeetening.draw(win)
+            clickPoint = win.getMouse()
+            yeetening.undraw()
             swap(20)
             button_list[18][0].undraw()
             button_list[18][1].undraw()
