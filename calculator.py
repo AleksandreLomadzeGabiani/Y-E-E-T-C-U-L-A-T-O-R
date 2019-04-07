@@ -18,19 +18,19 @@ seed(time.time())
 WINDOW_WIDTH, WINDOW_HEIGHT = 300, 400
 first=None
 needClear=False
+YEET=False
 
 meme_images=("surreal_feel.png","smile_4d_cancer.gif")
+MEME=None
 win = GraphWin("Y E E T C U L A T O R", WINDOW_WIDTH, WINDOW_HEIGHT)
-MEME= Image(Point(WINDOW_WIDTH/2, WINDOW_HEIGHT/2),"background_memes/"+choice(meme_images))
-MEME.draw(win)
 UI= Image(Point(WINDOW_WIDTH/2, 50),"calculatorUI.gif")
 UI.draw(win)
 
 def buttons():
     button_list=[]
     button_commands=("1", "2", "3", "4", "5", "6", "7", 
-                      "8", "9", "0", ".", "rand", "-",
-                      "+", "enter", "/", "<-", "X", "*") #need to be arranged to match correct buttons
+                      "8", "9", "0", ".", "YEET", "-",
+                      "+", "*", "/", "<-", "X", "enter") #need to be arranged to match correct buttons
 
     generated_buttons=[]
     for i in range(4):
@@ -46,8 +46,7 @@ def buttons():
     ad = Rectangle(Point(223.0, 206.0), Point(278.0, 251.0))
     en = Rectangle(Point(223.0, 264.0), Point(278.0, 383.0))
     
-
-    hard_coded_buttons=[su, ad, en, di, ba, cl, mu]
+    hard_coded_buttons=[su, ad, mu, di, ba, cl, en]
     
     temp=-1
     for button in generated_buttons:
@@ -78,9 +77,16 @@ def inside(point, rectangle):
     
 def action(button):
     """ Recieves text and executes command accordingly """
+    
+    #all global variables I need for functionality of certain buttons
     global first
     global needClear
     global button_list
+    global YEET
+    global MEME
+#    global UI
+#    global text
+#    global textOperation
     
     if needClear==True:
         needClear=False
@@ -134,10 +140,36 @@ def action(button):
                 text.setText(text.getText()+".")
             return True
         
-        elif command=="rand":
-            chosen=button_list[randrange(0, 18)]
-            print("randomly clicked: "+chosen[1])
-            action(chosen)
+        elif command=="YEET":
+            YEET=True
+            for button in button_list:
+                b, t=button
+                if t.getText()=="YEET":
+                    t.setText("PLZ STAPH")
+                    break
+            MEME=Image(Point(WINDOW_WIDTH/2, WINDOW_HEIGHT/2),"background_memes/"+choice(meme_images))
+            MEME.draw(win)
+            swap(20)
+            button_list[18][0].undraw()
+            button_list[18][1].undraw()
+            UI.undraw()
+            text.undraw()
+            textOperation.undraw()
+            UI.draw(win)
+            text.draw(win)
+            textOperation.draw(win)
+            button_list[18][0].draw(win)
+            button_list[18][1].draw(win)
+            return True
+        
+        elif command=="PLZ STAPH":
+            YEET=False
+            MEME.undraw()
+            for button in button_list:
+                b, t=button
+                b.undraw()
+                t.undraw()
+            button_list=buttons()
             return True
         
         elif command=="<-":
@@ -219,15 +251,53 @@ def action(button):
         return True
 
 def print_pos():
+    """ cool way to create rectangles easily (just click)"""
     ll= win.getMouse()
     ur= win.getMouse()
     print ("Rectangle(Point({}, {}), Point({}, {}))".format(ll.getX(),ll.getY(),ur.getX(),ur.getY()))
+
+def swapText(text1, text2):
+    """ swaps 2 text object locations """
+    anchor1=text1.getAnchor()
+    anchor2=text2.getAnchor()
+    text1.undraw()
+    text2.undraw()
+    text2.move(anchor1.getX()-anchor2.getX(),anchor1.getY()-anchor2.getY())
+    text1.move(anchor2.getX()-anchor1.getX(),anchor2.getY()-anchor1.getY())
+    text1.draw(win)
+    text2.draw(win)
+
+def swapButtons(button1, button2):
+    """ swaps 2 rectangle object locations """
+    anchor1=button1.getCenter()
+    anchor2=button2.getCenter()
+    button1.undraw()
+    button2.undraw()
+    button2.move(anchor1.getX()-anchor2.getX(),anchor1.getY()-anchor2.getY())
+    button1.move(anchor2.getX()-anchor1.getX(),anchor2.getY()-anchor1.getY())
+    button1.draw(win)
+    button2.draw(win)
+
+
+def swap(amount_swaps):
+    """ swaps 2 button locations amount_swaps times"""
+    global button_list
+    
+    for i in range(amount_swaps):
+        choice1 , choice2= button_list[randrange(0, 18)], button_list[randrange(0, 18)]
+        if choice1 != choice2:
+            button1, text1 = choice1
+            button2, text2= choice2
+            print("SWAPPING: '{}' '{}'".format(text1.getText(),text2.getText()))
+            swapButtons(button1, button2)
+            swapText(text1,text2)
         
 button_list = buttons()
 
 text = Text(Point(150, 50), "")
 text.setSize(28)
 text.draw(win)
+
 
 textOperation= Text(Point(25, 50), "")
 textOperation.setSize(28)
@@ -236,10 +306,12 @@ textOperation.draw(win)
 cont=True
 
 while cont:
-
     cont=True
     clickPoint = win.getMouse()
     
+    if YEET:
+        swap(randrange(0,5))
+        
     if clickPoint is not None:  # so we can substitute checkMouse() for getMouse()
         for button in button_list:
             if inside(clickPoint, button[0]):
