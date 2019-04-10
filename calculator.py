@@ -11,6 +11,7 @@ credit for the basic button collisions):
 
 from graphics import *
 from random import *
+
 import time
 
 seed(time.time())
@@ -19,13 +20,6 @@ WINDOW_WIDTH, WINDOW_HEIGHT = 300, 400
 first=None
 needClear=False
 YEET=False
-
-meme_images=("surreal_feel.png","smile_4d_cancer.gif","Brainlet_3.gif"
-             ,"brainlet_2.gif","feel_conceal.gif")
-MEME=None
-win = GraphWin("Y E E T C U L A T O R", WINDOW_WIDTH, WINDOW_HEIGHT)
-UI= Image(Point(WINDOW_WIDTH/2, 50),"calculatorUI.gif")
-UI.draw(win)
 
 def buttons():
     button_list=[]
@@ -85,9 +79,7 @@ def action(button):
     global button_list
     global YEET
     global MEME
-#    global UI
-#    global text
-#    global textOperation
+
     
     if needClear==True:
         needClear=False
@@ -297,7 +289,14 @@ def swap(amount_swaps):
             print("SWAPPING: '{}' '{}'".format(text1.getText(),text2.getText()))
             swapButtons(button1, button2)
             swapText(text1,text2)
-        
+
+meme_images=("surreal_feel.png","smile_4d_cancer.gif","Brainlet_3.gif"
+             ,"brainlet_2.gif","feel_conceal.gif")
+MEME=None
+win = GraphWin("Y E E T C U L A T O R", WINDOW_WIDTH, WINDOW_HEIGHT)
+UI= Image(Point(WINDOW_WIDTH/2, 50),"calculatorUI.gif")
+UI.draw(win)
+
 button_list = buttons()
 
 text = Text(Point(150, 50), "")
