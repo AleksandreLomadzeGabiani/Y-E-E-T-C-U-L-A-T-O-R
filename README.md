@@ -1,4 +1,4 @@
-# [Y-E-E-T-C-U-L-A-T-O-R](assets/misc/yeetculator_preview.png)
+# [YEETCULATOR](assets/misc/yeetculator_preview.png)
 Functional calculators will never be as fun as this one.
 
 ## contributing or modifying
