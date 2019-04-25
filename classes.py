@@ -26,7 +26,7 @@ class Calculator(object):
              ,"brainlet_2.gif","feel_conceal.gif")
         self.MEME=None
         self.win = GraphWin("Y E E T C U L A T O R", self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
-        self.UI= Image(Point(self.WINDOW_WIDTH/2, 50),"calculatorUI.gif")
+        self.UI= Image(Point(self.WINDOW_WIDTH/2, 50),"assets/UI/calculatorUI.gif")
         self.UI.draw(self.win)
         
         self.button_list = buttons()
