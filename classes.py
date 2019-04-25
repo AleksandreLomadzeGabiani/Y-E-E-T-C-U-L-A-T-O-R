@@ -94,7 +94,7 @@ class Calculator(object):
                         t.setText("PLZ STAPH")
                         break
                 yeetening=Text(Point(150,390),"click to continue")
-                self.MEME=Image(Point(self.WINDOW_WIDTH/2, self.WINDOW_HEIGHT/2),"background_memes/"+choice(self.meme_images))
+                self.MEME=Image(Point(self.WINDOW_WIDTH/2, self.WINDOW_HEIGHT/2),"assets/background_memes/"+choice(self.meme_images))
                 self.MEME.draw(self.win)
                 yeetening.setTextColor("red")
                 yeetening.draw(self.win)
