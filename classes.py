@@ -7,6 +7,7 @@ Created on Wed Apr 17 05:34:55 2019
 
 from graphics import *
 from random import *
+from time import *
 from functions import *
 
 import time
@@ -23,16 +24,15 @@ class Calculator(object):
         self.YEET=False
         
         self.meme_images=("surreal_feel.png","smile_4d_cancer.gif","Brainlet_3.gif"
-             ,"brainlet_2.gif","feel_conceal.gif")
+            ,"brainlet_2.gif","feel_conceal.gif","dr_emoji.gif")
         self.MEME=None
         self.win = GraphWin("Y E E T C U L A T O R", self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         self.UI= Image(Point(self.WINDOW_WIDTH/2, 50),"assets/UI/calculatorUI.gif")
         self.UI.draw(self.win)
         
         self.button_list = buttons()
-        
         self.draw_button_list()
-            
+
         self.text = Text(Point(150, 50), "")
         self.text.setSize(28)
         self.text.draw(self.win)
@@ -93,13 +93,14 @@ class Calculator(object):
                     if t.getText()=="YEET":
                         t.setText("PLZ STAPH")
                         break
-                yeetening=Text(Point(150,390),"click to continue")
+                #yeetening=Text(Point(150,390),"click to continue")
                 self.MEME=Image(Point(self.WINDOW_WIDTH/2, self.WINDOW_HEIGHT/2),"assets/background_memes/"+choice(self.meme_images))
                 self.MEME.draw(self.win)
-                yeetening.setTextColor("red")
-                yeetening.draw(self.win)
-                clickPoint = self.win.getMouse()
-                yeetening.undraw()
+                #yeetening.setTextColor("red")
+                #yeetening.draw(self.win)
+                #clickPoint = self.win.getMouse()
+                #yeetening.undraw()
+                time.sleep(1/10)
                 self.swap(20)
                 self.button_list[18][0].undraw()
                 self.button_list[18][1].undraw()
